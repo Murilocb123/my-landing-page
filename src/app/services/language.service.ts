@@ -5,11 +5,11 @@ export type Lang = 'pt' | 'en';
 const TRANSLATIONS = {
   pt: {
     nav: {
-      home: 'this.home()',
-      about: 'this.about()',
-      work: 'this.work()',
-      stack: 'this.stack()',
-      contact: 'this.contact()',
+      home: 'home()',
+      about: 'about()',
+      work: 'project()',
+      stack: 'stack()',
+      contact: 'contact()',
     },
     hero: {
       status: 'Disponível para novos projetos',
@@ -54,11 +54,11 @@ const TRANSLATIONS = {
   },
   en: {
     nav: {
-      home: 'this.home()',
-      about: 'this.about()',
-      work: 'this.work()',
-      stack: 'this.stack()',
-      contact: 'this.contact()',
+      home: 'home()',
+      about: 'about()',
+      work: 'project()',
+      stack: 'stack()',
+      contact: 'contact()',
     },
     hero: {
       status: 'Available for new projects',

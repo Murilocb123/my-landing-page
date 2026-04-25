@@ -43,13 +43,24 @@ body {
 
 .section-title {
   font-size: var(--text-section);
-  font-weight: 700;
-  color: var(--color-accent);
+  font-weight: 500;
+  color: var(--color-text-primary);
   font-family: var(--font-mono);
+  /* JetBrains Mono junta "/>" em uma ligature — desligamos para separar os glifos */
+  font-variant-ligatures: none;
+  font-feature-settings: 'liga' 0, 'calt' 0;
   margin-bottom: 3rem;
 
+  &::before,
+  &::after {
+    color: var(--color-accent);
+    font-variant-ligatures: none;
+    font-feature-settings: 'liga' 0, 'calt' 0;
+  }
+
   &::before { content: '<'; }
-  &::after  { content: '/>'; }
+  /* hair space (\200A) entre "/" e ">" garante separação mesmo em fontes com ligatures agressivas */
+  &::after  { content: '/\200A>'; letter-spacing: 0.04em; }
 }
 
 .tag {

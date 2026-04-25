@@ -18,7 +18,7 @@
               (click)="scrollTo(item.id)"
               [attr.aria-current]="activeSection() === item.id ? 'page' : null"
             >
-              {{ langService.t().nav[item.labelKey] }}
+              <span class="nav-link__prefix">this.</span><span class="nav-link__method">{{ langService.t().nav[item.labelKey] }}</span>
             </button>
           </li>
         }
@@ -62,7 +62,7 @@
               (click)="scrollTo(item.id)"
               [attr.aria-current]="activeSection() === item.id ? 'page' : null"
             >
-              {{ langService.t().nav[item.labelKey] }}
+              <span class="mobile-nav-link__prefix">this.</span><span class="mobile-nav-link__method">{{ langService.t().nav[item.labelKey] }}</span>
             </button>
           </li>
         }

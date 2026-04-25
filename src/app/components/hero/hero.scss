@@ -156,6 +156,42 @@
     }
   }
 
+  &__terminal {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* evita "pulo" de altura quando não há texto digitado */
+    min-height: 1.5em;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
+  }
+
+  &__terminal-prompt {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  &__terminal-text {
+    white-space: pre;
+  }
+
+  &__terminal-caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    background: var(--color-accent); /* laranja terminal */
+    border-radius: 1px;
+    margin-left: 0.05em;
+    transform: translateY(0.08em);
+    animation: terminal-blink 1s steps(2, start) infinite;
+  }
+
   &__photo-wrapper {
     /* fora do flow do grid: não influencia mais a altura do hero */
     position: absolute;
@@ -279,4 +315,8 @@
     transform: translateY(4px);
     opacity: 1;
   }
+}
+
+@keyframes terminal-blink {
+  to { visibility: hidden; }
 }

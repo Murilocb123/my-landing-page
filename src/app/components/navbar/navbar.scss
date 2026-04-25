@@ -8,13 +8,13 @@
   width: min(1100px, calc(100vw - 2rem));
   padding: 0.625rem 1.25rem;
   border-radius: 9999px;
-  background: rgba(252, 254, 255, 0.06);
+  background: rgba(29, 31, 36, 0.45);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   box-shadow:
-    inset 0 1px 0 rgba(252, 254, 255, 0.18),
-    inset 0 -1px 0 rgba(252, 254, 255, 0.04),
-    0 10px 40px -12px rgba(0, 0, 0, 0.45);
+    inset 0 1px 0 rgba(252, 254, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 10px 40px -12px rgba(0, 0, 0, 0.55);
   transition:
     width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     padding 0.35s ease,
@@ -24,12 +24,12 @@
 
   &--scrolled {
     width: min(820px, calc(100vw - 2rem));
-    background: rgba(252, 254, 255, 0.1);
+    background: rgba(29, 31, 36, 0.45);
     border-color: rgba(252, 254, 255, 0.18);
     box-shadow:
-      inset 0 1px 0 rgba(252, 254, 255, 0.25),
-      inset 0 -1px 0 rgba(252, 254, 255, 0.06),
-      0 14px 50px -14px rgba(0, 0, 0, 0.55);
+      inset 0 1px 0 rgba(252, 254, 255, 0.18),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      0 14px 50px -14px rgba(0, 0, 0, 0.65);
   }
 
   &__inner {
@@ -110,15 +110,25 @@
   transition: color 0.2s ease, background 0.2s ease;
   white-space: nowrap;
 
+  /* IDE syntax: spans herdam a cor do botão por padrão */
+  &__prefix,
+  &__method {
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
   &:hover {
     color: #FCFEFF;
     background: rgba(252, 254, 255, 0.08);
   }
 
   &--active {
-    color: #FCFEFF;
     background: rgba(252, 254, 255, 0.1);
     box-shadow: inset 0 0 0 1px rgba(252, 254, 255, 0.12);
+
+    /* IDE-style: "this." em branco, método em azul (accent) */
+    .nav-link__prefix { color: #FCFEFF; }
+    .nav-link__method { color: var(--color-accent); }
   }
 }
 
@@ -211,13 +221,21 @@
   border-radius: 0.625rem;
   transition: color 0.2s ease, background 0.2s ease;
 
+  &__prefix,
+  &__method {
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
   &:hover {
     color: #FCFEFF;
     background: rgba(252, 254, 255, 0.08);
   }
 
   &--active {
-    color: #FCFEFF;
     background: rgba(252, 254, 255, 0.1);
+
+    .mobile-nav-link__prefix { color: #FCFEFF; }
+    .mobile-nav-link__method { color: var(--color-accent); }
   }
 }

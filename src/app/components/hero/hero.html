@@ -22,6 +22,13 @@
       <!-- Name -->
       <h1 id="hero-heading" class="hero__name">{{ langService.t().hero.name }}</h1>
 
+      <!-- Terminal-style typing effect -->
+      <p class="hero__terminal" aria-live="polite" aria-atomic="true">
+        <span class="hero__terminal-prompt" aria-hidden="true">&gt;</span>
+        <span class="hero__terminal-text">{{ typed() }}</span>
+        <span class="hero__terminal-caret" aria-hidden="true"></span>
+      </p>
+
       <!-- Bio -->
       <p class="hero__bio">{{ langService.t().hero.bio }}</p>
     </div>

@@ -27,10 +27,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   protected readonly menuOpen = signal(false);
 
   protected readonly navItems: NavItem[] = [
-    { id: 'home', labelKey: 'home' },
     { id: 'about', labelKey: 'about' },
     { id: 'work', labelKey: 'work' },
-    { id: 'stack', labelKey: 'stack' },
     { id: 'contact', labelKey: 'contact' },
   ];
 
