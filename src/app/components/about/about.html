@@ -1,0 +1,59 @@
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="section-container">
+    <h2 id="about-heading" class="section-title">{{ langService.t().about.heading }}</h2>
+
+    <div class="about__grid">
+      <!-- Left: developer card -->
+      <div class="about__card">
+        <span class="dev-badge">{{ langService.t().about.badge }}</span>
+        <p class="about__bio">{{ langService.t().about.bio }}</p>
+
+        <div class="about__stats" role="list" aria-label="Estatísticas">
+          <div class="stat-box" role="listitem">
+            <span class="stat-box__value">{{ langService.t().about.stats.yearsValue }}</span>
+            <span class="stat-box__label">{{ langService.t().about.stats.yearsLabel }}</span>
+          </div>
+          <div class="stat-box" role="listitem">
+            <span class="stat-box__value">{{ langService.t().about.stats.projectsValue }}</span>
+            <span class="stat-box__label">{{ langService.t().about.stats.projectsLabel }}</span>
+          </div>
+          <div class="stat-box" role="listitem">
+            <span class="stat-box__value">{{ langService.t().about.stats.languagesValue }}</span>
+            <span class="stat-box__label">{{ langService.t().about.stats.languagesLabel }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: experience timeline -->
+      <div
+        class="timeline"
+        role="list"
+        [attr.aria-label]="langService.t().about.experienceLabel"
+      >
+        @for (exp of experiences; track exp.company) {
+          <article class="timeline__item" role="listitem">
+            <div class="timeline__indicator" aria-hidden="true">
+              <div class="timeline__dot" [class.timeline__dot--active]="exp.current"></div>
+            </div>
+            <div class="timeline__content">
+              <div class="timeline__header">
+                @if (exp.current) {
+                  <span class="timeline__current-badge">atual</span>
+                }
+                <time class="timeline__period">{{ exp.period }}</time>
+              </div>
+              <h3 class="timeline__title">{{ exp.title }}</h3>
+              <p class="timeline__company">{{ exp.company }}</p>
+              <p class="timeline__desc">{{ exp.description }}</p>
+              <div class="timeline__tags">
+                @for (tag of exp.tags; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

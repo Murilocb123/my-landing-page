@@ -1,0 +1,48 @@
+<section class="projects" id="work" aria-labelledby="projects-heading">
+  <div class="section-container">
+    <h2 id="projects-heading" class="section-title">{{ langService.t().projects.heading }}</h2>
+
+    <div class="projects__grid">
+      @for (project of projects; track project.title) {
+        <article class="project-card">
+          <div class="project-card__image-wrapper">
+            <img
+              ngSrc="{{ project.image }}"
+              [alt]="project.title"
+              [width]="project.imageWidth"
+              [height]="project.imageHeight"
+              loading="lazy"
+              class="project-card__image"
+            />
+          </div>
+
+          <div class="project-card__body">
+            <h3 class="project-card__title">{{ project.title }}</h3>
+            <p class="project-card__desc">{{ project.description }}</p>
+
+            <div class="project-card__tags">
+              @for (tag of project.tags; track tag) {
+                <span class="tag">{{ tag }}</span>
+              }
+            </div>
+
+            <a
+              [href]="project.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-card__cta"
+              [attr.aria-label]="langService.t().projects.visit + ' ' + project.title"
+            >
+              {{ langService.t().projects.visit }}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

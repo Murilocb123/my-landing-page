@@ -1,0 +1,22 @@
+<section
+  class="marquee"
+  id="stack"
+  aria-label="Tecnologias que utilizo"
+>
+  <div class="marquee__track" aria-hidden="true">
+    @for (skill of skillsDoubled; track $index) {
+      <div class="marquee__item">
+        <img
+          [src]="skill.logo"
+          [alt]="skill.name"
+          width="28"
+          height="28"
+          loading="lazy"
+          class="marquee__icon"
+        />
+        <span class="marquee__name">{{ skill.name }}</span>
+      </div>
+      <span class="marquee__dot" aria-hidden="true">•</span>
+    }
+  </div>
+</section>

@@ -1,0 +1,55 @@
+<section class="hero" aria-labelledby="hero-heading" id="home">
+  <!-- Decorative animated background -->
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="section-container hero__content">
+    <!-- Left: text -->
+    <div class="hero__text">
+      <!-- Status bar -->
+      <div class="hero__status" role="status">
+        <span class="hero__status-dot" aria-hidden="true"></span>
+        <span>{{ langService.t().hero.status }}</span>
+        <span class="hero__status-sep" aria-hidden="true">|</span>
+        <span>{{ langService.t().hero.location }}</span>
+        <span class="hero__status-sep" aria-hidden="true">|</span>
+        <span>{{ langService.t().hero.since }}</span>
+      </div>
+
+      <!-- Greeting -->
+      <p class="hero__greeting">{{ langService.t().hero.greeting }}</p>
+
+      <!-- Name -->
+      <h1 id="hero-heading" class="hero__name">{{ langService.t().hero.name }}</h1>
+
+      <!-- Bio -->
+      <p class="hero__bio">{{ langService.t().hero.bio }}</p>
+    </div>
+
+    <!-- Right: profile photo (cutout PNG, bleeds to hero bottom edge) -->
+    <div class="hero__photo-wrapper">
+      <img
+        ngSrc="/images/profile.png"
+        alt="Murilo — Full Stack Developer"
+        width="720"
+        height="880"
+        class="hero__photo"
+        priority
+      />
+    </div>
+  </div>
+
+  <!-- Scroll CTA (text + underline + chevron) -->
+  <button
+    class="hero__scroll-cta"
+    (click)="scrollToAbout()"
+    type="button"
+    [attr.aria-label]="langService.t().hero.cta"
+  >
+    <span class="hero__scroll-cta-text">{{ langService.t().hero.cta }}</span>
+    <span class="hero__scroll-cta-rule" aria-hidden="true"></span>
+    <svg class="hero__scroll-cta-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="28" height="28">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+</section>

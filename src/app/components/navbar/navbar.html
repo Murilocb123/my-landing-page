@@ -1,0 +1,72 @@
+<header [class]="isScrolled() ? 'navbar navbar--scrolled' : 'navbar'" role="banner">
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <button class="navbar__logo" (click)="scrollTo('home')" aria-label="Início">
+      <span class="navbar__logo-text">&lt;M/&gt;</span>
+    </button>
+
+    <!-- Desktop nav -->
+    <nav class="navbar__nav" aria-label="Navegação principal">
+      <ul class="navbar__links" role="list">
+        @for (item of navItems; track item.id) {
+          <li>
+            <button
+              class="nav-link"
+              [class.nav-link--active]="activeSection() === item.id"
+              (click)="scrollTo(item.id)"
+              [attr.aria-current]="activeSection() === item.id ? 'page' : null"
+            >
+              {{ langService.t().nav[item.labelKey] }}
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="navbar__actions">
+      <!-- Language toggle -->
+      <button
+        class="lang-toggle"
+        (click)="toggleLang()"
+        [attr.aria-label]="langService.lang() === 'pt' ? 'Switch to English' : 'Mudar para Português'"
+      >
+        {{ langService.lang() === 'pt' ? 'EN' : 'PT' }}
+      </button>
+
+      <!-- Hamburger (mobile) -->
+      <button
+        class="hamburger"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu de navegação"
+      >
+        <span class="hamburger__line" [class.hamburger__line--open]="menuOpen()"></span>
+        <span class="hamburger__line" [class.hamburger__line--open]="menuOpen()"></span>
+        <span class="hamburger__line" [class.hamburger__line--open]="menuOpen()"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  @if (menuOpen()) {
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Navegação mobile">
+      <ul role="list">
+        @for (item of navItems; track item.id) {
+          <li>
+            <button
+              class="mobile-nav-link"
+              [class.mobile-nav-link--active]="activeSection() === item.id"
+              (click)="scrollTo(item.id)"
+              [attr.aria-current]="activeSection() === item.id ? 'page' : null"
+            >
+              {{ langService.t().nav[item.labelKey] }}
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+</header>

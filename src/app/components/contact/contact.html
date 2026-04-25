@@ -1,0 +1,76 @@
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div class="section-container contact__inner">
+
+    <div class="contact__left">
+      <p class="contact__eyebrow">{{ langService.t().contact.sub }}</p>
+      <h2 id="contact-heading" class="section-title">{{ langService.t().contact.heading }}</h2>
+      <p class="contact__bio">
+        {{ langService.lang() === 'pt'
+          ? 'Estou disponível para novos projetos, colaborações ou apenas bater um papo sobre tecnologia. Manda uma mensagem!'
+          : "I'm available for new projects, collaborations or just a chat about technology. Send me a message!" }}
+      </p>
+    </div>
+
+    <div class="contact__right">
+      <!-- Email block -->
+      <div class="contact__email-block">
+        <p class="contact__label">{{ langService.t().contact.emailLabel }}</p>
+        <div class="contact__email-row">
+          <a
+            [href]="'mailto:' + email"
+            class="contact__email-link"
+            [attr.aria-label]="'Enviar email para ' + email"
+          >
+            {{ email }}
+          </a>
+          <button
+            class="contact__copy-btn"
+            (click)="copyEmail()"
+            [attr.aria-label]="langService.t().contact.copy + ' email'"
+            [attr.aria-pressed]="copied()"
+            type="button"
+          >
+            @if (copied()) {
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              {{ langService.t().contact.copied }}
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              {{ langService.t().contact.copy }}
+            }
+          </button>
+        </div>
+
+        @if (copied()) {
+          <p class="contact__copied-msg" role="status" aria-live="polite">
+            ✓ {{ langService.t().contact.copied }}
+          </p>
+        }
+      </div>
+
+      <!-- Social links -->
+      <div class="contact__socials-block">
+        <p class="contact__label">{{ langService.t().contact.findMe }}</p>
+        <div class="contact__socials">
+          @for (social of socials; track social.name) {
+            <a
+              [href]="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+              [attr.aria-label]="social.name"
+            >
+              <img [src]="social.icon" [alt]="social.name" width="22" height="22" loading="lazy" />
+              <span>{{ social.name }}</span>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,282 @@
+.hero {
+  position: relative;
+  min-height: 80svh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding-top: 5rem;
+  padding-bottom: 0;
+  border-bottom-left-radius: clamp(1.5rem, 4vw, 3rem);
+  border-bottom-right-radius: clamp(1.5rem, 4vw, 3rem);
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--color-bg-base);
+    background-image: url('/images/hero-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(8, 16, 37, 0.55) 100%),
+        linear-gradient(
+          180deg,
+          rgba(8, 16, 37, 0.35) 0%,
+          transparent 25%,
+          transparent 75%,
+          rgba(8, 16, 37, 0.6) 100%
+        );
+      pointer-events: none;
+    }
+  }
+
+  &__bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 0%, rgba(8, 16, 37, 0.55) 80%),
+      linear-gradient(
+        180deg,
+        rgba(8, 16, 37, 0.35) 0%,
+        rgba(8, 16, 37, 0.1) 50%,
+        rgba(8, 16, 37, 0.6) 100%
+      );
+    pointer-events: none;
+  }
+
+  &__glow {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(30, 111, 255, 0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 6rem; /* leaves room for scroll-cta */
+
+    @media (max-width: 900px) {
+      align-items: center;
+      text-align: center;
+      padding-bottom: 7rem;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* respeita o espaço ocupado pela foto à direita */
+    max-width: 64%;
+
+    @media (max-width: 900px) {
+      max-width: 100%;
+      padding-bottom: 0;
+    }
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
+  }
+
+  &__status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-green);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  &__status-sep {
+    opacity: 0.4;
+  }
+
+  &__greeting {
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #ffffff 40%, rgba(61, 135, 255, 0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__bio {
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 900px) {
+      margin-inline: auto;
+    }
+  }
+
+  &__photo-wrapper {
+    /* fora do flow do grid: não influencia mais a altura do hero */
+    position: absolute;
+    right: -4rem;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    pointer-events: none;
+    right: -15rem;
+    @media (max-width: 1400px) {
+      right: -8rem;
+    }
+
+    @media (max-width: 900px) {
+      position: relative;
+      right: auto;
+      order: -1;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: -2rem;
+    }
+  }
+
+  &__photo {
+    position: relative;
+    width: auto;
+    height: clamp(420px, 78svh, 720px);
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom right;
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45));
+
+    @media (max-width: 900px) {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+    }
+  }
+
+  &__scroll-cta {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: #ffffff;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      color: var(--color-accent-hover);
+
+      .hero__scroll-cta-chevron {
+        transform: translateY(4px);
+      }
+    }
+  }
+
+  &__scroll-cta-text {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  &__scroll-cta-rule {
+    display: block;
+    width: 6rem;
+    max-width: 40vw;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+
+  &__scroll-cta-chevron {
+    color: var(--color-accent);
+    transition: transform 0.25s ease;
+    animation: scroll-chevron 2s ease-in-out infinite;
+  }
+}
+
+@keyframes stripes-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 120px 120px;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes scroll-chevron {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
