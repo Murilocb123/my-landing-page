@@ -7,7 +7,7 @@ const TRANSLATIONS = {
     nav: {
       home: 'home()',
       about: 'about()',
-      work: 'project()',
+      projects: 'project()',
       stack: 'stack()',
       contact: 'contact()',
     },
@@ -18,7 +18,7 @@ const TRANSLATIONS = {
       greeting: '//olá, sou o',
       name: 'Murilo',
       bio: 'Desenvolvedor Full Stack apaixonado por criar experiências digitais robustas e escaláveis. Especializado em Angular, Node.js e arquiteturas modernas de software.',
-      cta: 'Veja Mais',
+      cta: 'Veja mais',
     },
     about: {
       heading: 'about',
@@ -56,7 +56,7 @@ const TRANSLATIONS = {
     nav: {
       home: 'home()',
       about: 'about()',
-      work: 'project()',
+      projects: 'project()',
       stack: 'stack()',
       contact: 'contact()',
     },
@@ -67,7 +67,7 @@ const TRANSLATIONS = {
       greeting: '//hello, I am',
       name: 'Murilo',
       bio: 'Full Stack Developer passionate about building robust and scalable digital experiences. Specialized in Angular, Node.js, and modern software architectures.',
-      cta: 'See More',
+      cta: 'See more',
     },
     about: {
       heading: 'about',

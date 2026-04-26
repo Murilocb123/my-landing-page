@@ -91,60 +91,139 @@
   flex-direction: column;
   gap: 0;
 
+  /* ---------- ITEM (botão) ---------- */
   &__item {
+    /* reset do <button> */
+    appearance: none;
+    background: transparent;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    cursor: pointer;
+
+    /* layout */
     display: grid;
     grid-template-columns: 28px 1fr;
     gap: 1rem;
-    padding-bottom: 2.5rem;
+    padding: 0 0 2.5rem 0;
+    text-align: left;
     position: relative;
+
+    /* atenuado por padrão; selecionado fica 100% */
+    opacity: 0.45;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 6px;
+      border-radius: 0.75rem;
+    }
+
+    &--selected {
+      opacity: 1;
+    }
 
     &:last-child {
       padding-bottom: 0;
-
-      .timeline__indicator::after {
-        display: none;
-      }
     }
   }
 
+  /* ---------- INDICATOR (linha + bolinha) ---------- */
   &__indicator {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: calc(100% + 2.5rem - 14px);
-      background: linear-gradient(to bottom, var(--color-border), transparent);
-    }
   }
 
-  &__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+  /* trilha (cinza) que conecta este dot ao próximo */
+  &__line {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% + 2.5rem - 16px);
     background: var(--color-border);
-    border: 2px solid var(--color-bg-section);
-    flex-shrink: 0;
-    margin-top: 2px;
-    transition: background 0.2s;
+    border-radius: 999px;
+    overflow: hidden;
+    z-index: 0;
 
-    &--active {
-      background: var(--color-accent);
-      box-shadow: 0 0 8px rgba(30, 111, 255, 0.5);
+    /* último item não tem linha pra baixo */
+    .timeline__item:last-child & { display: none; }
+  }
+
+  /* preenchimento animado da trilha (azul) */
+  &__line-fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      var(--color-accent),
+      rgba(30, 111, 255, 0.55)
+    );
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* item "completo" = linha já passou (i < selectedIndex) → trilha cheia */
+    .timeline__item--complete & {
+      transform: scaleY(1);
     }
   }
 
+  /* bolinha do step */
+  &__dot {
+    position: relative;
+    z-index: 1;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-bg-section);
+    border: 2px solid var(--color-border);
+    margin-top: 4px;
+    flex-shrink: 0;
+    transition:
+      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      background 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+
+    /* steps já visitados (incluindo o atual selecionado) */
+    .timeline__item--reached & {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    /* o step selecionado: bolinha grande com halo */
+    .timeline__item--selected & {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      box-shadow:
+        0 0 0 4px rgba(30, 111, 255, 0.18),
+        0 0 18px rgba(30, 111, 255, 0.55);
+    }
+  }
+
+  /* ---------- CONTEÚDO ---------- */
   &__content {
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
+    transition: transform 0.3s ease;
+
+    .timeline__item--selected & {
+      transform: translateX(2px);
+    }
   }
 
   &__header {
@@ -173,6 +252,11 @@
     font-weight: 600;
     color: var(--color-text-primary);
     line-height: 1.3;
+    transition: color 0.3s ease, font-size 0.3s ease;
+
+    .timeline__item--selected & {
+      font-size: 1.125rem;
+    }
   }
 
   &__company {

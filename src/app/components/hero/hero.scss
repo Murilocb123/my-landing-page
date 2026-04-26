@@ -207,13 +207,33 @@
       right: -8rem;
     }
 
+    /* Mobile: vira um quadro circular glass centralizado acima do texto */
     @media (max-width: 900px) {
       position: relative;
       right: auto;
+      bottom: auto;
       order: -1;
       justify-content: center;
-      width: 100%;
-      margin-bottom: -2rem;
+      align-items: center;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 1.5rem;
+      flex: none;
+      pointer-events: auto;
+
+      /* Mesmo "liquid glass" da navbar — fundo translúcido escuro + blur,
+         visível nas áreas transparentes do PNG cutout. */
+      background: rgba(29, 31, 36, 0.45);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 3px solid rgba(30, 111, 255, 0.45);
+      border-radius: 50%;
+      overflow: hidden; /* clipa a foto ampliada */
+      box-shadow:
+        inset 0 1px 0 rgba(252, 254, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+        0 14px 32px -10px rgba(30, 111, 255, 0.45),
+        0 0 40px -8px rgba(30, 111, 255, 0.3);
     }
   }
 
@@ -226,10 +246,25 @@
     object-position: bottom right;
     filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45));
 
+    /* Mobile: dá zoom no rosto.
+       - object-fit: cover preenche os 160×160 do wrapper
+       - transform: scale amplia a renderização; o overflow:hidden do
+         wrapper clipa o excesso
+       - transform-origin é o "pivô" do scale: ele NÃO se move ao ampliar.
+         Ajustando em X (45%) compensamos a assimetria do PNG (pose com
+         ombros virados desloca o rosto pra esquerda) e centralizamos. */
     @media (max-width: 900px) {
       width: 100%;
-      max-width: 520px;
-      height: auto;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center 12%;
+      transform: scale(1.65);
+      transform-origin: 45% 28%;
+      filter: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
     }
   }
 

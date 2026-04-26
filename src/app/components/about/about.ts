@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  signal,
+} from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 
 type Experience = {
@@ -48,4 +53,19 @@ export class AboutComponent {
       current: false,
     },
   ];
+
+  /**
+   * Índice da experiência em destaque na timeline (step ativo).
+   * Inicia na "atual" (current === true); senão, no primeiro item.
+   */
+  protected readonly selectedIndex = signal<number>(
+    Math.max(
+      0,
+      this.experiences.findIndex(e => e.current),
+    ),
+  );
+
+  protected select(i: number): void {
+    this.selectedIndex.set(i);
+  }
 }

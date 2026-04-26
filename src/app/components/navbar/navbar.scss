@@ -15,9 +15,11 @@
     inset 0 1px 0 rgba(252, 254, 255, 0.14),
     inset 0 -1px 0 rgba(0, 0, 0, 0.25),
     0 10px 40px -12px rgba(0, 0, 0, 0.55);
+  /* `border-radius` e `padding` ficam FORA do transition pra mudar
+     instantaneamente quando o menu abre (caso contrário, a navbar vira
+     pill→retângulo lentamente, dando aspecto de "redondo virando quadrado"). */
   transition:
     width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    padding 0.35s ease,
     background 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
@@ -30,6 +32,13 @@
       inset 0 1px 0 rgba(252, 254, 255, 0.18),
       inset 0 -1px 0 rgba(0, 0, 0, 0.3),
       0 14px 50px -14px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Mobile: quando o menu está aberto, a navbar deixa de ser pill e vira
+     um único container arredondado contendo a barra superior + lista. */
+  &--menu-open {
+    border-radius: 1.5rem;
+    padding: 0.625rem 1rem 1rem;
   }
 
   &__inner {
@@ -46,14 +55,22 @@
     cursor: pointer;
     padding: 0;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease, filter 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 8px rgba(30, 111, 255, 0.45));
+    }
   }
 
-  &__logo-text {
-    font-family: var(--font-mono);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
+  &__logo-img {
+    /* SVG nativo é 83x70; ajusta a altura e a largura segue automaticamente */
+    height: 32px;
+    width: auto;
+    display: block;
+    user-select: none;
   }
 
   &__nav {
@@ -187,22 +204,51 @@
 }
 
 .mobile-menu {
+  /* Agora vive DENTRO do container arredondado da navbar — sem bg/borda próprios */
   margin-top: 0.5rem;
-  background: rgba(8, 16, 37, 0.78);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(252, 254, 255, 0.12);
-  border-radius: 1.25rem;
-  padding: 0.75rem 1rem;
-  box-shadow:
-    inset 0 1px 0 rgba(252, 254, 255, 0.12),
-    0 14px 50px -14px rgba(0, 0, 0, 0.55);
+  padding: 0.5rem 0 0;
+  border-top: 1px solid rgba(252, 254, 255, 0.08);
+
+  /* Animação de entrada: slide-down + fade + leve scale a partir do topo */
+  animation: mobile-menu-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: top center;
 
   ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+  }
+
+  /* Stagger: cada item entra levemente depois do anterior */
+  li {
+    animation: mobile-menu-item-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  li:nth-child(1) { animation-delay: 0.06s; }
+  li:nth-child(2) { animation-delay: 0.12s; }
+  li:nth-child(3) { animation-delay: 0.18s; }
+  li:nth-child(4) { animation-delay: 0.24s; }
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes mobile-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

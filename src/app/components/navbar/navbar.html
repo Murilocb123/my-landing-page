@@ -1,10 +1,24 @@
-<header [class]="isScrolled() ? 'navbar navbar--scrolled' : 'navbar'" role="banner">
+<header
+  [class]="
+    'navbar' +
+    (isScrolled() ? ' navbar--scrolled' : '') +
+    (menuOpen() ? ' navbar--menu-open' : '')
+  "
+  role="banner"
+>
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
 
   <div class="navbar__inner">
     <!-- Logo -->
     <button class="navbar__logo" (click)="scrollTo('home')" aria-label="Início">
-      <span class="navbar__logo-text">&lt;M/&gt;</span>
+      <img
+        ngSrc="/icons/logo_murilo.svg"
+        alt=""
+        width="83"
+        height="70"
+        priority
+        class="navbar__logo-img"
+      />
     </button>
 
     <!-- Desktop nav -->
