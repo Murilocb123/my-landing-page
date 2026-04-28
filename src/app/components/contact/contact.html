@@ -64,7 +64,7 @@
               class="social-link"
               [attr.aria-label]="social.name"
             >
-              <img [src]="social.icon" [alt]="social.name" width="22" height="22" loading="lazy" />
+              <fa-icon [icon]="social.icon" class="social-link__icon" />
               <span>{{ social.name }}</span>
             </a>
           }

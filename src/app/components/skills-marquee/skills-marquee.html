@@ -6,15 +6,25 @@
   <div class="marquee__track" aria-hidden="true">
     @for (skill of skillsDoubled; track $index) {
       <div class="marquee__item">
-        <img
-          [src]="skill.logo"
-          [alt]="skill.name"
-          width="28"
-          height="28"
-          loading="lazy"
-          class="marquee__icon"
-        />
-        <span class="marquee__name">{{ skill.name }}</span>
+        @if (skill.faIcon) {
+          <fa-icon
+            [icon]="skill.faIcon"
+            class="marquee__icon marquee__icon--fa"
+            [attr.aria-label]="skill.name"
+          />
+        } @else {
+          <img
+            [src]="skill.imgSrc"
+            [alt]="skill.name"
+            width="28"
+            height="28"
+            loading="lazy"
+            class="marquee__icon"
+          />
+        }
+        @if (!skill.hideName) {
+          <span class="marquee__name">{{ skill.name }}</span>
+        }
       </div>
       <span class="marquee__dot" aria-hidden="true">•</span>
     }

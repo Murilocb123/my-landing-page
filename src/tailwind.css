@@ -1,7 +1,10 @@
 @import 'tailwindcss';
 
 @theme static {
-  /* Colors */
+  /* ========================================================================
+     SEMANTIC COLORS (theme-aware)
+     Defaults below = DARK theme. Light theme overrides at the bottom.
+  ======================================================================== */
   --color-bg-base:        #081025;
   --color-bg-section:     #081025;
   --color-bg-card:        #0d1a3d;
@@ -14,7 +17,55 @@
   --color-green:          #22c55e;
   --color-tag-bg:         rgba(30, 111, 255, 0.12);
 
-  /* Typography */
+  /* ========================================================================
+     GLASS / ELEVATED SURFACES (theme-aware)
+     Used by: navbar, hero photo wrapper (mobile), language/theme toggles,
+     hamburger button, mobile menu items.
+  ======================================================================== */
+  --glass-bg:                    rgba(29, 31, 36, 0.45);
+  --glass-bg-strong:             rgba(29, 31, 36, 0.7);
+  --glass-highlight-top:         rgba(252, 254, 255, 0.14);
+  --glass-highlight-top-strong:  rgba(252, 254, 255, 0.18);
+  --glass-highlight-bot:         rgba(0, 0, 0, 0.25);
+  --glass-highlight-bot-strong:  rgba(0, 0, 0, 0.3);
+  --glass-shadow-sm:             rgba(0, 0, 0, 0.55);
+  --glass-shadow-md:             rgba(0, 0, 0, 0.65);
+  --glass-divider:               rgba(252, 254, 255, 0.08);
+  --glass-hover-bg:              rgba(252, 254, 255, 0.08);
+  --glass-active-bg:              rgba(252, 254, 255, 0.1);
+  --glass-active-ring:           rgba(252, 254, 255, 0.12);
+  --glass-control-bg:            rgba(252, 254, 255, 0.1);
+  --glass-control-bg-hover:      rgba(252, 254, 255, 0.18);
+  --glass-control-border:        rgba(252, 254, 255, 0.18);
+  --glass-control-border-hover:  rgba(252, 254, 255, 0.3);
+  --glass-text:                  #FCFEFF;
+  --glass-text-dim:              rgba(252, 254, 255, 0.75);
+
+  /* ========================================================================
+     HERO BACKGROUND (theme-aware)
+     Cada tema usa uma imagem de fundo desenhada pra ele (sem filter hack).
+     `--hero-bg-scale` aplica um zoom-in opcional (light theme amplia ligeiramente).
+  ======================================================================== */
+  --hero-bg-image:         url('/images/hero-bg-dark.webp');
+  --hero-bg-scale:         1;
+  --hero-overlay-radial:   rgba(8, 16, 37, 0.7);
+  --hero-overlay-top:      rgba(8, 16, 37, 0.45);
+  --hero-overlay-mid:      rgba(8, 16, 37, 0.15);
+  --hero-overlay-bot:      rgba(8, 16, 37, 0.78);
+  --hero-photo-shadow:     rgba(0, 0, 0, 0.45);
+
+  /* Hero usa texto CLARO em AMBOS os temas (o bg é imagem, não a base do tema).
+     Padrão de hero como "media banner" — desacoplado da paleta do body. */
+  --hero-text-primary:     #ffffff;
+  --hero-text-secondary:   rgba(255, 255, 255, 0.85);
+  --hero-text-muted:       rgba(255, 255, 255, 0.7);
+  --name-gradient-from:    #ffffff;
+  --name-gradient-to:      rgba(61, 135, 255, 0.85);
+  --hero-code-comment:     #1e6fff;
+
+  /* ========================================================================
+     TYPOGRAPHY
+  ======================================================================== */
   --font-sans:     'Tonos', 'Inter', system-ui, sans-serif;
   --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
   --font-display:  'Pacaembu', 'Inter', system-ui, sans-serif;
@@ -27,4 +78,62 @@
   /* Spacing */
   --section-padding-y: clamp(5rem, 10vw, 9rem);
   --container-max:     1200px;
+}
+
+/* ==========================================================================
+   LIGHT THEME — overrides only the theme-aware tokens.
+   Activated via `data-theme="light"` on <html>.
+========================================================================== */
+:root[data-theme='light'] {
+  --color-bg-base:        #fefefe;
+  --color-bg-section:     #ffffff;
+  --color-bg-card:        #ffffff;
+  --color-bg-projects:    #1e6fff;
+  --color-accent:         #1e5fdd;
+  --color-accent-hover:   #1a52c4;
+  --color-border:         rgba(30, 95, 221, 0.2);
+  --color-text-primary:   #0f172a;
+  --color-text-secondary: #475569;
+  --color-green:          #16a34a;
+  --color-tag-bg:         rgba(30, 95, 221, 0.08);
+
+  --glass-bg:                    rgba(255, 255, 255, 0.65);
+  --glass-bg-strong:             rgba(255, 255, 255, 0.85);
+  --glass-highlight-top:         rgba(255, 255, 255, 0.95);
+  --glass-highlight-top-strong:  rgba(255, 255, 255, 1);
+  --glass-highlight-bot:         rgba(15, 23, 42, 0.06);
+  --glass-highlight-bot-strong:  rgba(15, 23, 42, 0.08);
+  --glass-shadow-sm:             rgba(15, 23, 42, 0.12);
+  --glass-shadow-md:             rgba(15, 23, 42, 0.2);
+  --glass-divider:               rgba(15, 23, 42, 0.08);
+  --glass-hover-bg:              rgba(15, 23, 42, 0.04);
+  --glass-active-bg:             rgba(30, 95, 221, 0.1);
+  --glass-active-ring:           rgba(30, 95, 221, 0.2);
+  --glass-control-bg:            rgba(15, 23, 42, 0.04);
+  --glass-control-bg-hover:      rgba(15, 23, 42, 0.08);
+  --glass-control-border:        rgba(15, 23, 42, 0.1);
+  --glass-control-border-hover:  rgba(15, 23, 42, 0.2);
+  --glass-text:                  #0f172a;
+  --glass-text-dim:              rgba(15, 23, 42, 0.65);
+
+  /* Hero: imagem própria do tema light + overlays escurinhos no canto pra
+     texto BRANCO ler bem mesmo no light. Overlay do bottom mais leve pra
+     a bio não sumir no fade pro branco. */
+  --hero-bg-image:         url('/images/hero-bg-light.webp');
+  --hero-bg-scale:         1.12;
+  --hero-overlay-radial:   rgba(15, 23, 42, 0.35);
+  --hero-overlay-top:      rgba(15, 23, 42, 0.25);
+  --hero-overlay-mid:      rgba(15, 23, 42, 0.1);
+  --hero-overlay-bot:      rgba(245, 247, 251, 0.55);
+  --hero-photo-shadow:     rgba(15, 23, 42, 0.25);
+
+  /* Mantém texto claro no hero do light theme (sem override aqui = herda dos
+     tokens dark). Apenas explicitamos pra clareza: */
+  --hero-text-primary:     #ffffff;
+  --hero-text-secondary:   rgba(255, 255, 255, 0.9);
+  --hero-text-muted:       rgba(255, 255, 255, 0.78);
+  --name-gradient-from:    #ffffff;
+  --name-gradient-to:      rgba(180, 215, 255, 0.95);
+  --hero-code-comment:   rgba(255, 255, 255, 0.9);
+
 }

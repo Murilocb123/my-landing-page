@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
+import { ThemeService } from '../../services/theme.service';
 
 type NavItem = {
   id: 'home' | 'about' | 'projects' | 'stack' | 'contact';
@@ -24,6 +25,7 @@ type NavItem = {
 })
 export class NavbarComponent implements AfterViewInit, OnDestroy {
   protected readonly langService = inject(LanguageService);
+  protected readonly themeService = inject(ThemeService);
   protected readonly isScrolled = signal(false);
   protected readonly activeSection = signal('home');
   protected readonly menuOpen = signal(false);
@@ -157,5 +159,9 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
 
   protected toggleLang(): void {
     this.langService.toggle();
+  }
+
+  protected toggleTheme(): void {
+    this.themeService.toggle();
   }
 }

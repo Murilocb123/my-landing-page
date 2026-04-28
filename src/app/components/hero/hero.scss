@@ -16,23 +16,27 @@
     inset: 0;
     z-index: 0;
     background-color: var(--color-bg-base);
-    background-image: url('/images/hero-bg.webp');
+    /* imagem trocada por tema via CSS var (dark/light webp em /images/) */
+    background-image: var(--hero-bg-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    /* tema light amplia ligeiramente (--hero-bg-scale = 1.12); dark fica em 1 */
+    transform: scale(var(--hero-bg-scale, 1));
+    transform-origin: center;
+    transition: transform 0.4s ease;
 
     &::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at center, transparent 30%, rgba(8, 16, 37, 0.55) 100%),
         linear-gradient(
           180deg,
-          rgba(8, 16, 37, 0.35) 0%,
+          var(--hero-overlay-top) 0%,
           transparent 25%,
           transparent 75%,
-          rgba(8, 16, 37, 0.6) 100%
+          var(--hero-overlay-bot) 100%
         );
       pointer-events: none;
     }
@@ -43,12 +47,12 @@
     inset: 0;
     z-index: 0;
     background:
-      radial-gradient(ellipse at center, transparent 0%, rgba(8, 16, 37, 0.55) 80%),
+      radial-gradient(ellipse at center, transparent 0%, var(--hero-overlay-radial) 80%),
       linear-gradient(
         180deg,
-        rgba(8, 16, 37, 0.35) 0%,
-        rgba(8, 16, 37, 0.1) 50%,
-        rgba(8, 16, 37, 0.6) 100%
+        var(--hero-overlay-top) 0%,
+        var(--hero-overlay-mid) 50%,
+        var(--hero-overlay-bot) 100%
       );
     pointer-events: none;
   }
@@ -100,7 +104,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.8rem;
-    color: var(--color-text-secondary);
+    color: var(--hero-text-muted);
     margin-bottom: 1.25rem;
     flex-wrap: wrap;
 
@@ -125,7 +129,7 @@
   &__greeting {
     font-family: var(--font-mono);
     font-size: 1.125rem;
-    color: var(--color-accent);
+    color: var(--hero-code-comment);
     margin-bottom: 0.75rem;
     opacity: 0.9;
   }
@@ -137,7 +141,7 @@
     letter-spacing: -0.03em;
     line-height: 0.92;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #ffffff 40%, rgba(61, 135, 255, 0.85) 100%);
+    background: linear-gradient(135deg, var(--name-gradient-from) 40%, var(--name-gradient-to) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -145,7 +149,7 @@
 
   &__bio {
     font-family: var(--font-body);
-    color: var(--color-text-secondary);
+    color: var(--hero-text-secondary);
     font-size: 1.0625rem;
     line-height: 1.7;
     max-width: 700px;
@@ -159,7 +163,7 @@
   &__terminal {
     font-family: var(--font-mono);
     font-size: 1rem;
-    color: #ffffff;
+    color: var(--hero-text-primary);
     margin-bottom: 1.75rem;
     display: inline-flex;
     align-items: center;
@@ -221,17 +225,16 @@
       flex: none;
       pointer-events: auto;
 
-      /* Mesmo "liquid glass" da navbar — fundo translúcido escuro + blur,
+      /* Mesmo "liquid glass" da navbar — fundo translúcido + blur,
          visível nas áreas transparentes do PNG cutout. */
-      background: rgba(29, 31, 36, 0.45);
+      background: var(--glass-bg);
       backdrop-filter: blur(18px) saturate(160%);
       -webkit-backdrop-filter: blur(18px) saturate(160%);
-      border: 3px solid rgba(30, 111, 255, 0.45);
       border-radius: 50%;
       overflow: hidden; /* clipa a foto ampliada */
       box-shadow:
-        inset 0 1px 0 rgba(252, 254, 255, 0.14),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 var(--glass-highlight-top),
+        inset 0 -1px 0 var(--glass-highlight-bot),
         0 14px 32px -10px rgba(30, 111, 255, 0.45),
         0 0 40px -8px rgba(30, 111, 255, 0.3);
     }
@@ -244,7 +247,7 @@
     max-width: none;
     object-fit: contain;
     object-position: bottom right;
-    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 30px 40px var(--hero-photo-shadow));
 
     /* Mobile: dá zoom no rosto.
        - object-fit: cover preenche os 160×160 do wrapper
@@ -282,7 +285,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    color: #ffffff;
+    color: var(--hero-text-primary);
     transition:
       color 0.2s ease,
       transform 0.2s ease;

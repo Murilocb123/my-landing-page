@@ -26,23 +26,107 @@
               }
             </div>
 
-            <a
-              [href]="project.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-card__cta"
-              [attr.aria-label]="langService.t().projects.visit + ' ' + project.title"
-            >
-              {{ langService.t().projects.visit }}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
+            <div class="project-card__actions">
+              <!-- "Visitar" só aparece se houver URL pública -->
+              @if (project.url) {
+                <a
+                  [href]="project.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-card__cta project-card__cta--ghost"
+                  [attr.aria-label]="langService.t().projects.visit + ' ' + project.title"
+                >
+                  {{ langService.t().projects.visit }}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              }
+
+              <!-- "Ver código" — comportamento depende da quantidade de repos -->
+              @if (project.repos; as repos) {
+                @if (repos.length === 1) {
+                  <a
+                    [href]="repos[0].url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-card__cta project-card__cta--filled"
+                    [attr.aria-label]="langService.t().projects.viewCode + ' ' + project.title"
+                  >
+                    <fa-icon [icon]="faGithub" class="project-card__cta-icon" />
+                    {{ langService.t().projects.viewCode }}
+                  </a>
+                } @else {
+                  <button
+                    type="button"
+                    class="project-card__cta project-card__cta--filled"
+                    (click)="openReposModal(project)"
+                    [attr.aria-label]="langService.t().projects.viewCode + ' ' + project.title"
+                    [attr.aria-haspopup]="'dialog'"
+                  >
+                    <fa-icon [icon]="faGithub" class="project-card__cta-icon" />
+                    {{ langService.t().projects.viewCode }}
+                    <span class="project-card__cta-count" aria-hidden="true">{{ repos.length }}</span>
+                  </button>
+                }
+              }
+            </div>
           </div>
         </article>
       }
     </div>
   </div>
+
+  <!-- Modal nativo: lista os repositórios quando o projeto tem 2+ repos -->
+  <dialog
+    #reposDialog
+    class="repos-dialog"
+    (click)="onDialogBackdropClick($event)"
+    (close)="onDialogClose()"
+    [attr.aria-labelledby]="'repos-dialog-title'"
+  >
+    @if (openReposFor(); as p) {
+      <div class="repos-dialog__inner">
+        <header class="repos-dialog__header">
+          <div>
+            <p class="repos-dialog__eyebrow">{{ langService.t().projects.reposTitle }}</p>
+            <h3 id="repos-dialog-title" class="repos-dialog__title">{{ p.title }}</h3>
+          </div>
+          <button
+            type="button"
+            class="repos-dialog__close"
+            (click)="closeReposModal()"
+            [attr.aria-label]="langService.t().projects.reposClose"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </header>
+
+        <ul class="repos-dialog__list" role="list">
+          @for (repo of p.repos; track repo.url) {
+            <li>
+              <a
+                [href]="repo.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repos-dialog__item"
+              >
+                <fa-icon [icon]="faGithub" class="repos-dialog__item-icon" />
+                <span class="repos-dialog__item-name">{{ repo.name }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="16" height="16" class="repos-dialog__item-arrow">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </dialog>
 </section>

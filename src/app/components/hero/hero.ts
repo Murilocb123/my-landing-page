@@ -20,11 +20,11 @@ export class HeroComponent implements OnDestroy {
 
   /** Frases que vão ser digitadas/apagadas em loop sob o nome. */
   private readonly phrases: readonly string[] = [
-    'ng serve --open',
-    'npm run build',
+    'mvn spring-boot:run',
+    'docker compose up -d',
     'git commit -m "ship it"',
-    'docker compose up',
-    'criando experiências digitais',
+    'kubectl apply -f .',
+    'criando APIs robustas',
   ];
 
   protected readonly typed = signal<string>('');

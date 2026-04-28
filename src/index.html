@@ -4,10 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#020b2d">
-  <meta name="description" content="Murilo — Full Stack Developer. Portfolio de projetos e experiência profissional.">
-  <title>Murilo | Full Stack Developer</title>
+  <meta name="description" content="Murilo Costa Bittencourt — Full Stack Developer Pleno. Java, Spring Boot, microsserviços, AWS e Angular. Portfolio de projetos e experiência profissional.">
+  <title>Murilo Costa Bittencourt | Full Stack Developer Pleno</title>
   <base href="/">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/images/logo-dark.webp">
+  <!--
+    Resolve o tema antes do CSS pintar pra evitar FOUC (flash do tema padrão
+    quando o usuário tem o oposto salvo). Roda síncrono, sem dependências.
+    Lógica idêntica ao ThemeService.resolveInitialTheme().
+  -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme-preference');
+        var theme =
+          saved === 'dark' || saved === 'light'
+            ? saved
+            : window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin>

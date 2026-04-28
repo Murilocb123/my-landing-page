@@ -40,6 +40,43 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
   }
+
+  /* CTA primário do card: download do CV */
+  &__cv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-accent);
+    color: #ffffff;
+    border: 1px solid var(--color-accent);
+    border-radius: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.15s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      background: var(--color-accent-hover);
+      border-color: var(--color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px -8px rgba(30, 111, 255, 0.5);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
 }
 
 .dev-badge {

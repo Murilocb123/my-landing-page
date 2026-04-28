@@ -58,6 +58,19 @@
     }
   }
 
+  /* fa-icon renderiza um <svg>; força tamanho equivalente aos PNG/SVG (28×28) */
+  &__icon--fa {
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    display: inline-flex;
+    align-items: center;
+
+    .marquee__item:hover & {
+      color: var(--color-accent);
+    }
+  }
+
   &__dot {
     color: var(--color-border);
     font-size: 0.5rem;

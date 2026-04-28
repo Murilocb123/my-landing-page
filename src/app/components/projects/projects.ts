@@ -1,6 +1,17 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { LanguageService } from '../../services/language.service';
+
+type Repo = { name: string; url: string };
 
 type Project = {
   title: string;
@@ -8,8 +19,16 @@ type Project = {
   image: string;
   imageWidth: number;
   imageHeight: number;
-  tags: string[];
-  url: string;
+  tags: readonly string[];
+  /** URL pública (deploy/produção). Se ausente, botão "Visitar" não aparece. */
+  url?: string;
+  /**
+   * Repositórios do projeto.
+   * - 1 repo  → botão "Ver código" abre direto o GitHub
+   * - 2+ repos → botão abre modal com a lista (ex: frontend + backend)
+   * - undefined → botão "Ver código" não aparece
+   */
+  repos?: readonly Repo[];
 };
 
 @Component({
@@ -17,12 +36,13 @@ type Project = {
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, FaIconComponent],
 })
 export class ProjectsComponent {
   protected readonly langService = inject(LanguageService);
+  protected readonly faGithub = faGithub;
 
-  protected readonly projects: Project[] = [
+  protected readonly projects: readonly Project[] = [
     {
       title: 'Portflow',
       description:
@@ -31,7 +51,11 @@ export class ProjectsComponent {
       imageWidth: 600,
       imageHeight: 340,
       tags: ['Angular', 'NestJS', 'PostgreSQL'],
-      url: '#',
+      url: 'https://example.com/portflow',
+      repos: [
+        { name: 'Frontend (Angular)', url: 'https://github.com/Murilocb123/portflow-web' },
+        { name: 'Backend (NestJS)', url: 'https://github.com/Murilocb123/portflow-api' },
+      ],
     },
     {
       title: 'API Hub',
@@ -40,8 +64,8 @@ export class ProjectsComponent {
       image: '/images/project-2.svg',
       imageWidth: 600,
       imageHeight: 340,
-      tags: ['Node.js', 'Docker', 'TypeScript'],
-      url: '#',
+      tags: ['Java', 'Spring Boot', 'Docker'],
+      repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/api-hub' }],
     },
     {
       title: 'TaskFlow',
@@ -51,7 +75,8 @@ export class ProjectsComponent {
       imageWidth: 600,
       imageHeight: 340,
       tags: ['Angular', 'NestJS', 'WebSocket'],
-      url: '#',
+      url: 'https://example.com/taskflow',
+      repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/taskflow' }],
     },
     {
       title: 'DataViz',
@@ -61,7 +86,40 @@ export class ProjectsComponent {
       imageWidth: 600,
       imageHeight: 340,
       tags: ['Angular', 'D3.js', 'PostgreSQL'],
-      url: '#',
+      repos: [
+        { name: 'Web (Angular + D3)', url: 'https://github.com/Murilocb123/dataviz-web' },
+        { name: 'API (Spring Boot)', url: 'https://github.com/Murilocb123/dataviz-api' },
+        { name: 'Worker (Node.js)', url: 'https://github.com/Murilocb123/dataviz-worker' },
+      ],
     },
   ];
+
+  /** Projeto cujos repositórios estão sendo exibidos no modal (null = fechado). */
+  protected readonly openReposFor = signal<Project | null>(null);
+
+  /** Referência ao <dialog> nativo pra abrir/fechar via API HTML. */
+  private readonly reposDialog =
+    viewChild<ElementRef<HTMLDialogElement>>('reposDialog');
+
+  protected openReposModal(project: Project): void {
+    this.openReposFor.set(project);
+    /* esperar 1 microtask pra @if popular o conteúdo antes de abrir o dialog */
+    queueMicrotask(() => this.reposDialog()?.nativeElement.showModal());
+  }
+
+  protected closeReposModal(): void {
+    this.reposDialog()?.nativeElement.close();
+  }
+
+  /** O <dialog> nativo dispara `close` ao apertar ESC ou via .close() — limpa o estado. */
+  protected onDialogClose(): void {
+    this.openReposFor.set(null);
+  }
+
+  /** Clique no backdrop (fora do conteúdo) fecha o modal. */
+  protected onDialogBackdropClick(event: MouseEvent): void {
+    if (event.target === this.reposDialog()?.nativeElement) {
+      this.closeReposModal();
+    }
+  }
 }
