@@ -3,22 +3,27 @@
     <h2 id="projects-heading" class="section-title">{{ langService.t().projects.heading }}</h2>
 
     <div class="projects__grid">
-      @for (project of projects; track project.title) {
+      @for (project of projects(); track project.title) {
         <article class="project-card">
           <div class="project-card__image-wrapper">
-            <img
-              ngSrc="{{ project.image }}"
-              [alt]="project.title"
-              [width]="project.imageWidth"
-              [height]="project.imageHeight"
-              loading="lazy"
-              class="project-card__image"
-            />
+            @if (project.images && project.images.length > 1) {
+              <app-card-carousel [images]="project.images" [alt]="project.title" />
+            } @else {
+              <img
+                ngSrc="{{ project.image }}"
+                [alt]="project.title"
+                [width]="project.imageWidth"
+                [height]="project.imageHeight"
+                loading="lazy"
+                class="project-card__image"
+              />
+            }
           </div>
 
           <div class="project-card__body">
             <h3 class="project-card__title">{{ project.title }}</h3>
             <p class="project-card__desc">{{ project.description }}</p>
+
 
             <div class="project-card__tags">
               @for (tag of project.tags; track tag) {
@@ -27,6 +32,23 @@
             </div>
 
             <div class="project-card__actions">
+              <!-- "Detalhes" só aparece quando o projeto tem conteúdo extra (descrição longa, diagrama). -->
+              @if (project.details) {
+                <button
+                  type="button"
+                  class="project-card__cta project-card__cta--text"
+                  (click)="openDetailsModal(project)"
+                  [attr.aria-label]="langService.t().projects.details + ' — ' + project.title"
+                  [attr.aria-haspopup]="'dialog'"
+                >
+                  {{ langService.t().projects.details }}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="14" height="14">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              }
+
               <!-- "Visitar" só aparece se houver URL pública -->
               @if (project.url) {
                 <a
@@ -83,8 +105,8 @@
   <dialog
     #reposDialog
     class="repos-dialog"
-    (click)="onDialogBackdropClick($event)"
-    (close)="onDialogClose()"
+    (click)="onReposDialogBackdropClick($event)"
+    (close)="onReposDialogClose()"
     [attr.aria-labelledby]="'repos-dialog-title'"
   >
     @if (openReposFor(); as p) {
@@ -127,6 +149,57 @@
           }
         </ul>
       </div>
+    }
+  </dialog>
+
+  <!-- Modal nativo: detalhes do projeto (descrição longa + diagramas de arquitetura) -->
+  <dialog
+    #detailsDialog
+    class="details-dialog"
+    (click)="onDetailsDialogBackdropClick($event)"
+    (close)="onDetailsDialogClose()"
+    [attr.aria-labelledby]="'details-dialog-title'"
+  >
+    @if (openDetailsFor(); as p) {
+      @if (p.details; as d) {
+        <div class="details-dialog__inner">
+          <header class="details-dialog__header">
+            <div>
+              <p class="details-dialog__eyebrow">{{ langService.t().projects.detailsTitle }}</p>
+              <h3 id="details-dialog-title" class="details-dialog__title">{{ p.title }}</h3>
+            </div>
+            <button
+              type="button"
+              class="details-dialog__close"
+              (click)="closeDetailsModal()"
+              [attr.aria-label]="langService.t().projects.detailsClose"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </header>
+
+          <p class="details-dialog__desc">{{ d.longDescription }}</p>
+
+          @if (d.diagrams.length > 0) {
+            <ul class="details-dialog__diagrams" role="list">
+              @for (diagram of d.diagrams; track diagram.src) {
+                <li class="details-dialog__diagram">
+                  <img
+                    [src]="diagram.src"
+                    [alt]="diagram.caption"
+                    loading="lazy"
+                    class="details-dialog__diagram-img"
+                  />
+                  <figcaption class="details-dialog__diagram-caption">{{ diagram.caption }}</figcaption>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
     }
   </dialog>
 </section>

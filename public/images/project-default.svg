@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-label="Project preview placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1640"/>
+      <stop offset="100%" stop-color="#071032"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e6fff"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="340" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#1e6fff" stroke-width="1">
+    <line x1="0" y1="80" x2="600" y2="80"/>
+    <line x1="0" y1="160" x2="600" y2="160"/>
+    <line x1="0" y1="240" x2="600" y2="240"/>
+    <line x1="120" y1="0" x2="120" y2="340"/>
+    <line x1="300" y1="0" x2="300" y2="340"/>
+    <line x1="480" y1="0" x2="480" y2="340"/>
+  </g>
+  <rect x="60" y="50" width="480" height="240" rx="12" fill="#0d1f5c" stroke="#1e6fff" stroke-opacity=".35"/>
+  <rect x="60" y="50" width="480" height="36" rx="12" fill="#081636"/>
+  <rect x="60" y="80" width="480" height="6" fill="#081636"/>
+  <circle cx="84" cy="68" r="5" fill="#ff5f56"/>
+  <circle cx="102" cy="68" r="5" fill="#ffbd2e"/>
+  <circle cx="120" cy="68" r="5" fill="#27c93f"/>
+  <text x="300" y="73" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#94a3b8" opacity=".55">~/projects</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+    <text x="84" y="120" fill="#27c93f">$</text>
+    <text x="102" y="120" fill="#94a3b8">git clone</text>
+    <text x="170" y="120" fill="url(#accent)">project</text>
+    <text x="84" y="148" fill="#1e6fff">const</text>
+    <text x="126" y="148" fill="#e2e8f0">build</text>
+    <text x="170" y="148" fill="#94a3b8">=</text>
+    <text x="184" y="148" fill="#fbbf24">async</text>
+    <text x="226" y="148" fill="#94a3b8">() =&gt; {</text>
+    <text x="104" y="172" fill="#94a3b8">await</text>
+    <text x="148" y="172" fill="#e2e8f0">deploy</text>
+    <text x="200" y="172" fill="#94a3b8">();</text>
+    <text x="84" y="196" fill="#94a3b8">};</text>
+    <text x="84" y="224" fill="#27c93f">$</text>
+    <text x="102" y="224" fill="#94a3b8">npm</text>
+    <text x="134" y="224" fill="#e2e8f0">run</text>
+    <text x="166" y="224" fill="url(#accent)">ship</text>
+    <rect x="200" y="213" width="9" height="14" fill="#1e6fff">
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <text x="540" y="278" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#1e6fff" opacity=".55">// preview unavailable</text>
+</svg>

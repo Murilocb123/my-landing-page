@@ -39,8 +39,11 @@ const TRANSLATIONS = {
       heading: 'project',
       visit: 'Visitar',
       viewCode: 'Ver código',
+      details: 'Detalhes',
       reposTitle: 'Repositórios do projeto',
       reposClose: 'Fechar',
+      detailsTitle: 'Detalhes do projeto',
+      detailsClose: 'Fechar',
     },
     contact: {
       heading: 'contact',
@@ -92,8 +95,11 @@ const TRANSLATIONS = {
       heading: 'project',
       visit: 'Visit',
       viewCode: 'View code',
+      details: 'Details',
       reposTitle: 'Project repositories',
       reposClose: 'Close',
+      detailsTitle: 'Project details',
+      detailsClose: 'Close',
     },
     contact: {
       heading: 'contact',

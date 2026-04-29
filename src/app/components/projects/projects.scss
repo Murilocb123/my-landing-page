@@ -121,6 +121,21 @@
         border-color: var(--color-accent-hover);
       }
     }
+
+    /* Variante texto (terciária): "Detalhes" — abre modal com diagrama/descrição longa */
+    &--text {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--color-text-secondary);
+      padding-inline: 0.75rem;
+
+      svg { transition: transform 0.2s ease; }
+
+      &:hover {
+        color: var(--color-accent);
+        svg { transform: translateX(2px); }
+      }
+    }
   }
 
   &__cta-icon {
@@ -285,5 +300,121 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================================================
+   MODAL de detalhes — descrição longa + diagramas de arquitetura
+======================================================================== */
+.details-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: calc(100vw - 2rem);
+  max-width: 760px;
+  height: fit-content;
+  max-height: calc(100vh - 2rem);
+
+  border: 1px solid var(--color-border);
+  border-radius: 1.125rem;
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  padding: 0;
+  overflow: auto;
+  box-shadow: 0 24px 70px -16px rgba(0, 0, 0, 0.55);
+  animation: repos-dialog-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::backdrop {
+    background: rgba(8, 16, 37, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+  }
+
+  &__title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--glass-control-bg);
+    border: 1px solid var(--glass-control-border);
+    border-radius: 9999px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: var(--glass-control-bg-hover);
+      color: var(--color-accent);
+    }
+  }
+
+  &__desc {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  &__diagrams {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--color-bg-base);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  &__diagram-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.5rem;
+    background: #ffffff; /* fundo claro pra diagramas com transparência */
+  }
+
+  &__diagram-caption {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    text-align: center;
   }
 }

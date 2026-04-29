@@ -13,7 +13,7 @@ import { LanguageService } from '../../services/language.service';
           <span class="footer__sep">{{ langService.t().footer.and }}</span>
           <span class="footer__tech">Tailwind CSS</span>
         </p>
-        <p class="footer__right">{{ langService.t().footer.rights }} | 2024</p>
+        <p class="footer__right">{{ langService.t().footer.rights }} | 2026</p>
       </div>
     </footer>
   `,
