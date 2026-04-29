@@ -40,7 +40,7 @@ export class SkillsMarqueeComponent {
   /** Stack do CV: Java backend + Spring Boot + microsserviços + cloud + Angular front. */
   private readonly skills: Skill[] = [
     { name: 'Java',         faIcon: faJava       },
-    { name: 'Spring Boot',  imgSrc: '/icons/spring.svg' },
+    { name: 'Spring Boot',  imgSrc: 'icons/spring.svg' },
     { name: 'Angular',      faIcon: faAngular    },
     { name: 'TypeScript',   faIcon: faTypescript },
     { name: 'Node.js',      faIcon: faNodeJs     },
@@ -52,5 +52,23 @@ export class SkillsMarqueeComponent {
     { name: 'Git',          faIcon: faGitAlt     },
   ];
 
-  protected readonly skillsDoubled: Skill[] = [...this.skills, ...this.skills];
+  /**
+   * Quantas vezes a lista de skills é repetida em CADA metade da track.
+   * Pra parecer infinito, uma metade precisa ser mais larga que o viewport
+   * (animação vai de translateX(0) a translateX(-50%); se uma metade < viewport,
+   * fica um gap vazio no final antes do salto). 10 itens × ~150px ≈ 1500px;
+   * 3× = ~4500px, cobre folgado até telas 4K (3840px).
+   *
+   * Mantenha em sincronia com `--marquee-repeat` no SCSS — a duração do
+   * scroll é multiplicada pelo mesmo fator pra preservar a velocidade visual.
+   */
+  private static readonly REPEAT_PER_HALF = 3;
+
+  private readonly skillsHalf: Skill[] = Array.from(
+    { length: SkillsMarqueeComponent.REPEAT_PER_HALF },
+    () => this.skills,
+  ).flat();
+
+  /** Track final: duas metades idênticas — a animação `0 → -50%` aterrissa no início da segunda. */
+  protected readonly skillsDoubled: Skill[] = [...this.skillsHalf, ...this.skillsHalf];
 }

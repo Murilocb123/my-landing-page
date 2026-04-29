@@ -29,7 +29,9 @@
     align-items: center;
     gap: 0;
     width: max-content;
-    animation: marquee-scroll 35s linear infinite;
+    /* Duração escalada pelo REPEAT_PER_HALF (3) no TS pra manter velocidade
+       visual constante mesmo com a track 3× mais larga. */
+    animation: marquee-scroll 105s linear infinite;
   }
 
   &__item {

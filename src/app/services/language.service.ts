@@ -44,6 +44,8 @@ const TRANSLATIONS = {
       reposClose: 'Fechar',
       detailsTitle: 'Detalhes do projeto',
       detailsClose: 'Fechar',
+      carouselPrev: 'Imagem anterior',
+      carouselNext: 'Próxima imagem',
     },
     contact: {
       heading: 'contact',
@@ -100,6 +102,8 @@ const TRANSLATIONS = {
       reposClose: 'Close',
       detailsTitle: 'Project details',
       detailsClose: 'Close',
+      carouselPrev: 'Previous image',
+      carouselNext: 'Next image',
     },
     contact: {
       heading: 'contact',

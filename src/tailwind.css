@@ -46,7 +46,7 @@
      Cada tema usa uma imagem de fundo desenhada pra ele (sem filter hack).
      `--hero-bg-scale` aplica um zoom-in opcional (light theme amplia ligeiramente).
   ======================================================================== */
-  --hero-bg-image:         url('/images/hero-bg-dark.webp');
+  --hero-bg-image:         url('../public/images/hero-bg-dark.webp');
   --hero-bg-scale:         1;
   --hero-overlay-radial:   rgba(8, 16, 37, 0.7);
   --hero-overlay-top:      rgba(8, 16, 37, 0.45);
@@ -119,7 +119,7 @@
   /* Hero: imagem própria do tema light + overlays escurinhos no canto pra
      texto BRANCO ler bem mesmo no light. Overlay do bottom mais leve pra
      a bio não sumir no fade pro branco. */
-  --hero-bg-image:         url('/images/hero-bg-light.webp');
+  --hero-bg-image:         url('../public/images/hero-bg-light.webp');
   --hero-bg-scale:         1.12;
   --hero-overlay-radial:   rgba(15, 23, 42, 0.35);
   --hero-overlay-top:      rgba(15, 23, 42, 0.25);
