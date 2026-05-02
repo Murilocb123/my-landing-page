@@ -6,11 +6,11 @@
   "
   role="banner"
 >
-  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+  <a href="#main-content" class="skip-link">{{ langService.t().nav.skipToContent }}</a>
 
   <div class="navbar__inner">
     <!-- Logo (troca por tema: logo-dark p/ tema escuro, logo-light p/ tema claro) -->
-    <button class="navbar__logo" (click)="scrollTo('home')" aria-label="Início">
+    <button class="navbar__logo" (click)="scrollTo('home')" [attr.aria-label]="langService.t().nav.logoAria">
       <img
         [ngSrc]="themeService.theme() === 'dark' ? 'images/logo-dark.webp' : 'images/logo-light.webp'"
         alt=""
@@ -22,7 +22,7 @@
     </button>
 
     <!-- Desktop nav -->
-    <nav class="navbar__nav" aria-label="Navegação principal">
+    <nav class="navbar__nav" [attr.aria-label]="langService.t().nav.mainNavAria">
       <ul class="navbar__links" role="list">
         @for (item of navItems; track item.id) {
           <li>
@@ -45,9 +45,9 @@
         class="theme-toggle"
         type="button"
         (click)="toggleTheme()"
-        [attr.aria-label]="themeService.theme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'"
+        [attr.aria-label]="themeService.theme() === 'dark' ? langService.t().nav.themeToLight : langService.t().nav.themeToDark"
         [attr.aria-pressed]="themeService.theme() === 'light'"
-        title="Alternar tema"
+        [attr.title]="langService.t().nav.themeToggleTitle"
       >
         @if (themeService.theme() === 'dark') {
           <!-- Sun icon: clicar pra ir pro light -->
@@ -74,7 +74,7 @@
       <button
         class="lang-toggle"
         (click)="toggleLang()"
-        [attr.aria-label]="langService.lang() === 'pt' ? 'Switch to English' : 'Mudar para Português'"
+        [attr.aria-label]="langService.t().nav.langToggleAria"
       >
         {{ langService.lang() === 'pt' ? 'EN' : 'PT' }}
       </button>
@@ -85,7 +85,7 @@
         (click)="toggleMenu()"
         [attr.aria-expanded]="menuOpen()"
         aria-controls="mobile-menu"
-        aria-label="Abrir menu de navegação"
+        [attr.aria-label]="langService.t().nav.openMenuAria"
       >
         <span class="hamburger__line" [class.hamburger__line--open]="menuOpen()"></span>
         <span class="hamburger__line" [class.hamburger__line--open]="menuOpen()"></span>
@@ -96,7 +96,7 @@
 
   <!-- Mobile menu -->
   @if (menuOpen()) {
-    <nav id="mobile-menu" class="mobile-menu" aria-label="Navegação mobile">
+    <nav id="mobile-menu" class="mobile-menu" [attr.aria-label]="langService.t().nav.mobileNavAria">
       <ul role="list">
         @for (item of navItems; track item.id) {
           <li>

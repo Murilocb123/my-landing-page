@@ -13,7 +13,12 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { LanguageService } from '../../services/language.service';
 import { CardCarouselComponent } from './card-carousel/card-carousel';
 
-type Repo = { name: string; url: string };
+type Repo = {
+  name: string;
+  url: string;
+  /** Quando preenchido, substitui `name` no idioma EN. Usado p/ entradas genéricas como "Repositório". */
+  nameEn?: string;
+};
 
 type Diagram = {
   src: string;
@@ -52,9 +57,11 @@ type ProjectSource = {
 
 type DiagramView = { src: string; caption: string };
 type ProjectDetails = { longDescription: string; diagrams: readonly DiagramView[] };
+type RepoView = { name: string; url: string };
 
-type Project = Omit<ProjectSource, 'descriptionPt' | 'descriptionEn' | 'details'> & {
+type Project = Omit<ProjectSource, 'descriptionPt' | 'descriptionEn' | 'details' | 'repos'> & {
   description: string;
+  repos?: readonly RepoView[];
   details?: ProjectDetails;
 };
 
@@ -140,7 +147,7 @@ const PROJECTS_SOURCE: readonly ProjectSource[] = [
     imageHeight: DEFAULT_H,
     tags: ['Angular', 'TypeScript', 'npm', 'Library'],
     url: 'https://www.npmjs.com/package/@murilocb123/ng-terminal-simulator',
-    repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/terminal-angular' }],
+    repos: [{ name: 'Repositório', nameEn: 'Repository', url: 'https://github.com/Murilocb123/terminal-angular' }],
   },
   {
     title: 'Crypto App',
@@ -152,7 +159,7 @@ const PROJECTS_SOURCE: readonly ProjectSource[] = [
     imageWidth: DEFAULT_W,
     imageHeight: DEFAULT_H,
     tags: ['React', 'Vite', 'Web Crypto API', 'Cryptography'],
-    repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/crypto-app-react' }],
+    repos: [{ name: 'Repositório', nameEn: 'Repository', url: 'https://github.com/Murilocb123/crypto-app-react' }],
   },
   {
     title: 'Comparador de Combustível',
@@ -164,7 +171,7 @@ const PROJECTS_SOURCE: readonly ProjectSource[] = [
     imageWidth: DEFAULT_W,
     imageHeight: DEFAULT_H,
     tags: ['Flutter', 'Dart', 'Mobile', 'Local Storage'],
-    repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/comparador-combustivel-flutter' }],
+    repos: [{ name: 'Repositório', nameEn: 'Repository', url: 'https://github.com/Murilocb123/comparador-combustivel-flutter' }],
   },
   {
     title: 'Airmap Dijkstra',
@@ -176,7 +183,7 @@ const PROJECTS_SOURCE: readonly ProjectSource[] = [
     imageWidth: DEFAULT_W,
     imageHeight: DEFAULT_H,
     tags: ['Java', 'Spring Boot', 'Dijkstra', 'Redis', 'Docker'],
-    repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/airmap-dijkstra' }],
+    repos: [{ name: 'Repositório', nameEn: 'Repository', url: 'https://github.com/Murilocb123/airmap-dijkstra' }],
   },
   {
     title: 'Truco Pascal',
@@ -188,7 +195,7 @@ const PROJECTS_SOURCE: readonly ProjectSource[] = [
     imageWidth: DEFAULT_W,
     imageHeight: DEFAULT_H,
     tags: ['Pascal', 'Algorithms', 'Data Structures'],
-    repos: [{ name: 'Repositório', url: 'https://github.com/Murilocb123/truco-pascal' }],
+    repos: [{ name: 'Repositório', nameEn: 'Repository', url: 'https://github.com/Murilocb123/truco-pascal' }],
   },
 ];
 
@@ -206,9 +213,13 @@ export class ProjectsComponent {
   protected readonly projects = computed<readonly Project[]>(() => {
     const isPt = this.langService.lang() === 'pt';
     return PROJECTS_SOURCE.map(
-      ({ descriptionPt, descriptionEn, details, ...rest }) => ({
+      ({ descriptionPt, descriptionEn, repos, details, ...rest }) => ({
         ...rest,
         description: isPt ? descriptionPt : descriptionEn,
+        repos: repos?.map(r => ({
+          url: r.url,
+          name: !isPt && r.nameEn ? r.nameEn : r.name,
+        })),
         details: details
           ? {
               longDescription: isPt ? details.longDescriptionPt : details.longDescriptionEn,

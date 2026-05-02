@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { LanguageService } from '../../services/language.service';
 import {
   faAngular,
   faAws,
@@ -37,6 +38,8 @@ type Skill = {
   imports: [FaIconComponent],
 })
 export class SkillsMarqueeComponent {
+  protected readonly langService = inject(LanguageService);
+
   /** Stack do CV: Java backend + Spring Boot + microsserviços + cloud + Angular front. */
   private readonly skills: Skill[] = [
     { name: 'Java',         faIcon: faJava       },

@@ -6,9 +6,24 @@
       <!-- Left: developer card -->
       <div class="about__card">
         <span class="dev-badge">{{ langService.t().about.badge }}</span>
+
+        <div class="about__credential" role="group" [attr.aria-label]="langService.t().about.formacao.degree">
+          <svg class="about__credential-icon" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               width="18" height="18" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+          <div class="about__credential-text">
+            <span class="about__credential-degree">{{ langService.t().about.formacao.degree }}</span>
+            <span class="about__credential-institution">{{ langService.t().about.formacao.institution }}</span>
+          </div>
+        </div>
+
         <p class="about__bio">{{ langService.t().about.bio }}</p>
 
-        <div class="about__stats" role="list" aria-label="Estatísticas">
+        <div class="about__stats" role="list" [attr.aria-label]="langService.t().about.stats.ariaLabel">
           <div class="stat-box" role="listitem">
             <span class="stat-box__value">{{ langService.t().about.stats.yearsValue }}</span>
             <span class="stat-box__label">{{ langService.t().about.stats.yearsLabel }}</span>
@@ -43,7 +58,7 @@
         class="timeline"
         [attr.aria-label]="langService.t().about.experienceLabel"
       >
-        @for (exp of experiences; track exp.company; let i = $index) {
+        @for (exp of experiences(); track exp.company; let i = $index) {
           <button
             type="button"
             class="timeline__item"
@@ -63,7 +78,7 @@
             <div class="timeline__content">
               <div class="timeline__header">
                 @if (exp.current) {
-                  <span class="timeline__current-badge">atual</span>
+                  <span class="timeline__current-badge">{{ langService.t().about.currentBadge }}</span>
                 }
                 <time class="timeline__period">{{ exp.period }}</time>
               </div>

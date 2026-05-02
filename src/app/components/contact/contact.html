@@ -4,11 +4,7 @@
     <div class="contact__left">
       <p class="contact__eyebrow">{{ langService.t().contact.sub }}</p>
       <h2 id="contact-heading" class="section-title">{{ langService.t().contact.heading }}</h2>
-      <p class="contact__bio">
-        {{ langService.lang() === 'pt'
-          ? 'Estou disponível para novos projetos, colaborações ou apenas bater um papo sobre tecnologia. Manda uma mensagem!'
-          : "I'm available for new projects, collaborations or just a chat about technology. Send me a message!" }}
-      </p>
+      <p class="contact__bio">{{ langService.t().contact.bio }}</p>
     </div>
 
     <div class="contact__right">
@@ -19,7 +15,7 @@
           <a
             [href]="'mailto:' + email"
             class="contact__email-link"
-            [attr.aria-label]="'Enviar email para ' + email"
+            [attr.aria-label]="langService.t().contact.sendEmailTo + ' ' + email"
           >
             {{ email }}
           </a>

@@ -57,6 +57,29 @@
     pointer-events: none;
   }
 
+  &__shade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      var(--hero-shade-from) 0%,
+      var(--hero-shade-mid) 35%,
+      var(--hero-shade-to) 65%
+    );
+
+    @media (max-width: 900px) {
+      background: linear-gradient(
+        180deg,
+        transparent 0%,
+        var(--hero-shade-from) 25%,
+        var(--hero-shade-mid) 70%,
+        transparent 100%
+      );
+    }
+  }
+
   &__glow {
     position: absolute;
     top: 20%;
@@ -208,7 +231,7 @@
     pointer-events: none;
     right: -15rem;
     @media (max-width: 1400px) {
-      right: -8rem;
+      right: -11rem;
     }
 
     /* Mobile: vira um quadro circular glass centralizado acima do texto */

@@ -1,7 +1,7 @@
 <section
   class="marquee"
   id="stack"
-  aria-label="Tecnologias que utilizo"
+  [attr.aria-label]="langService.t().marquee.ariaLabel"
 >
   <div class="marquee__track" aria-hidden="true">
     @for (skill of skillsDoubled; track $index) {
