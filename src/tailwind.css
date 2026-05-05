@@ -56,8 +56,8 @@
 
   /* Shade horizontal sob o texto do hero. Dark = transparente (o bg dark já tem
      contraste com texto branco). Light sobrescreve com tom escuro à esquerda. */
-  --hero-shade-from: transparent;
-  --hero-shade-mid:  transparent;
+  --hero-shade-from: rgba(8, 16, 37, 0.70);
+  --hero-shade-mid: rgba(8, 16, 37, 0.55);
   --hero-shade-to:   transparent;
 
   /* Hero usa texto CLARO em AMBOS os temas (o bg é imagem, não a base do tema).
@@ -135,8 +135,8 @@
 
   /* Light theme: gradiente escuro horizontal sob o texto à esquerda do hero
      pra garantir leitura do texto branco contra o bg azul claro saturado. */
-  --hero-shade-from: rgba(8, 16, 37, 0.55);
-  --hero-shade-mid:  rgba(8, 16, 37, 0.28);
+  --hero-shade-from: rgba(0, 104, 255, 0.25);
+  --hero-shade-mid: rgba(0, 104, 255, 0.35);
   --hero-shade-to:   transparent;
 
   /* Mantém texto claro no hero do light theme (sem override aqui = herda dos
